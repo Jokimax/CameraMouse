@@ -120,11 +120,11 @@ async def tick():
         return
     
     # Start our needed functions the cameraMouse and optionally our debugger
-    tasks = [cameraMouse(frame)]
     if debugMode:
         finished = False
-        tasks.append(debugCamera(frame))
-    await asyncio.gather(*tasks)
+        await asyncio.gather(*[debugCamera(frame), cameraMouse(frame)])
+    else:
+        await cameraMouse(frame)
     cv2.waitKey(1)
 
 if __name__ == '__main__':
