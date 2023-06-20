@@ -125,7 +125,6 @@ async def tick():
         await asyncio.gather(*[debugCamera(frame), cameraMouse(frame)])
     else:
         await cameraMouse(frame)
-    time.sleep(0.0001)
     cv2.waitKey(1)
 
 if __name__ == '__main__':
