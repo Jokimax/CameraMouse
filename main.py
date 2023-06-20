@@ -97,15 +97,15 @@ async def debugCamera(frame):
 
     # If the cameraMouse function is not finished keep doing so
     while not finished:
+        ret, frame = cam.read()
+        while not ret:
+            time.sleep(0.05)
+            ret, frame = cam.read()
         found = list(_mouse.detectMultiScale(frame, minNeighbors=5))
         found.extend(list(leftClick.detectMultiScale(frame, minNeighbors=5)))
         found.extend(list(rightClick.detectMultiScale(frame, minNeighbors=5)))
         if(len(found) > 0):
             frame = highlightDetections(found, frame)
-        ret, frame = cam.read()
-        while not ret:
-            time.sleep(0.05)
-            ret, frame = cam.read()
         cv2.imshow('frame', frame)
         if cv2.waitKey(1) == ord('q'):
             break
